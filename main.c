@@ -2,10 +2,13 @@
 #include <stdlib.h>
 #include <time.h>
 #include <stdbool.h>
-#include <windows.h>
 #include <string.h>
 
-
+#if defined(WIN32)
+#include <windows.h>
+#elif(UNIX)
+#include <unistd.h>
+#endif
 int main()
 {
     int MenuOpen;
@@ -47,7 +50,13 @@ int main()
    while(flag){
 
         //Sleep
+	#if defined(WIN32)
         Sleep (1000);
+	#endif
+
+	#if defined(WIN32)
+	usleep(1000);
+	#endif
 
         //Print time on mars
         printf("%.2i:%.2i:%.2i\r", hour, minute, second);
